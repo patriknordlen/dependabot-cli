@@ -6,6 +6,7 @@ from datetime import datetime
 import requests
 import sys
 from tabulate import tabulate
+from progress.bar import ShadyBar
 
 
 class GithubClient:
@@ -101,8 +102,10 @@ def main():
     else:
         repos = gh.get_org_repos(args.org)
 
-    for repo in repos:
-        alerts.extend(gh.get_dependabot_alerts(repo))
+    with ShadyBar("Getting repo alerts", max=len(repos)) as bar:
+        for repo in repos:
+            alerts.extend(gh.get_dependabot_alerts(repo))
+            bar.next()
 
     if args.min_age:
         alerts = list(
