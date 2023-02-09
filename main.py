@@ -115,7 +115,7 @@ def main():
         "-r", "--repos", help="Comma-separated list of repositories to check"
     )
     group.add_argument(
-        "-o", "--org", help="Organization to search for repos in", default="einride"
+        "-o", "--org", help="Organization to search for repos in"
     )
 
     args = parser.parse_args()
